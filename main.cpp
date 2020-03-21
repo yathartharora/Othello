@@ -13,9 +13,17 @@ int search_URD(char board[][8],char a,char b,int i,int j);
 int search_ULD(char board[][8],char a,char b,int i,int j);
 int search_DLD(char board[][8],char a,char b,int i,int j);
 int search_DRD(char board[][8],char a,char b,int i,int j);
+int C_search_right_HR(char board[][8],char a,char b,int i,int j);
+int C_search_left_HR(char board[][8],char a,char b,int i,int j);
+int C_search_VU(char board[][8],char a,char b,int i,int j);
+int C_search_VD(char board[][8],char a,char b,int i,int j);
+int C_search_URD(char board[][8],char a,char b,int i,int j);
+int C_search_ULD(char board[][8],char a,char b,int i,int j);
+int C_search_DLD(char board[][8],char a,char b,int i,int j);
+int C_search_DRD(char board[][8],char a,char b,int i,int j);
 int main()
 {
-    int i,j,x,y,count;
+    int i,j,x,y,count,flag=0,temp=0,a1,a2,a3,a4,a5,a6,a7,a8;
     char board[8][8];
     for(i=0;i<8;i++)
     {
@@ -25,8 +33,11 @@ int main()
         }
             
     }
-    //board[3][3] = 'O';
-    board[3][3] = 'X';
+    board[3][3] = 'O';
+    board[3][4] = 'X';
+    board[4][3] = 'X';
+    board[4][4] = 'O';
+    /*board[3][3] = 'X';
     board[3][4] = 'X';
     board[3][5] = 'X';
     board[4][3] = 'X';
@@ -41,7 +52,7 @@ int main()
     board[4][6] = 'O';
     board[6][2] = 'O';
     board[6][4] = 'O';
-    board[6][6] = 'O';
+    board[6][6] = 'O';*/
     while(1)
     {
         display(board);
@@ -64,14 +75,105 @@ int main()
                 cout<<endl;
                 cout<<endl;
                 display(board);
-                break;
+            break;
             }
             else
                 cout<<"You entered wrong coordinates!!"<<endl;
         }
         cout<<"Computer's Turn....!";
         cout<<endl;
-        count=search_left_HR(board,'X','O',1,2);
+        flag=0;
+        temp=0;
+        while(1)
+        {
+            for(i=0;i<8;i++)
+            {
+                for(j=0;j<8;j++)
+                {
+                    if(board[i][j]=='X')
+                    {
+                        a1 = C_search_right_HR(board,'O','.',i,j);
+                        if(a1==1)
+                        {
+                            flag=1;
+                            break;
+                        }
+                        else
+                        {
+                            a2 = C_search_left_HR(board,'O','.',i,j);
+                            if(a2==1)
+                            {
+                                flag=1;
+                                break;
+                            }
+                            else
+                            {
+                                a3 = C_search_VU(board,'O','.',i,j);
+                                if(a3==1)
+                                {
+                                    flag=1;
+                                    break;
+                                }
+                                else
+                                {
+                                    a4 = C_search_VD(board,'O','.',i,j);
+                                    if(a4==1)
+                                    {
+                                        flag=1;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        a5 = C_search_URD(board,'O','.',i,j);
+                                        if(a5==1)
+                                        {
+                                            flag=1;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            a6 = C_search_ULD(board,'O','.',i,j);
+                                            if(a6==1)
+                                            {
+                                                flag=1;
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                a7 = C_search_DLD(board,'O','.',i,j);
+                                                if(a7==1)
+                                                {
+                                                    flag=1;
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    a8 = C_search_DRD(board,'O','.',i,j);
+                                                    if(a8==1)
+                                                    {
+                                                        flag=1;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+            
+                    }
+                }
+                if(flag==1)
+                {
+                    temp=1;
+                    break;
+                }
+            }
+            if(temp==1)
+                break;
+        }
         cout<<endl;
         
                 
@@ -278,4 +380,160 @@ void display(char board[][8])
         }
         cout<<"\n";
     }
+}
+
+
+//Computer turn code
+
+int C_search_right_HR(char board[][8],char a,char b,int c,int d)
+{
+    int k,m,count=0;
+    for(k=d+1;k<8;k++)
+    {
+        if(board[c][k]==a)
+            count=count+1;
+        else if(board[c][k]==b && count>0)
+        {
+            for(m=k;m>d;m--)
+                board[c][m] = 'X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+}
+
+int C_search_left_HR(char board[][8],char a,char b,int c,int d)
+{
+    int k,m,count=0;
+    for(k=d-1;k>=0;k--)
+    {
+        if(board[c][k]==a)
+            count=count+1;
+        else if(board[c][k]==b && count>0)
+        {
+            for(m=k;m<d;m++)
+                board[c][m] = 'X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+    
+}
+
+int C_search_VU(char board[][8],char a,char b,int c,int d)
+{
+    int k,m,count=0;
+    for(k=c+1;k<8;k++)
+    {
+        if(board[k][d]==a)
+            count=count+1;
+        else if(board[k][d]==b && count>0)
+        {
+            for(m=k;m>c;m--)
+                board[m][d]='X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+}
+
+int C_search_VD(char board[][8],char a,char b,int c,int d)
+{
+    int k,m,count=0;
+    for(k=c-1;k>=0;k--)
+    {
+        if(board[k][d]==a)
+            count=count+1;
+        else if(board[k][d]==b && count>0)
+        {
+            for(m=k;m<c;m++)
+                board[m][d]='X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+}
+
+int C_search_URD(char board[][8],char a,char b,int i,int j)
+{
+    int m,n,k,l,count=0;
+    for(m=i-1,n=j+1;static_cast<void>(m>=0),n<8;m--,n++)
+    {
+        if(board[m][n]==a)
+            count=count+1;
+        else if(board[m][n]==b && count>0)
+        {
+            for(k=m,l=n;static_cast<void>(k<i),l>j;k++,l--)
+                board[k][l]='X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+}
+
+int C_search_ULD(char board[][8],char a,char b,int i,int j)
+{
+    int m,n,k,l,count=0;
+    for(m=i-1,n=j-1;static_cast<void>(m>=0),n>=0;m--,n--)
+    {
+        if(board[m][n]==a)
+            count=count+1;
+        else if(board[m][n]==b && count>0)
+        {
+            for(k=m,l=n;static_cast<void>(k<i),l<j;k++,l++)
+                board[k][l]='X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+}
+
+int C_search_DLD(char board[][8],char a,char b,int i,int j)
+{
+    int m,n,k,l,count=0;
+    for(m=i+1,n=j-1;static_cast<void>(m<8),n>=0;m++,n--)
+    {
+        if(board[m][n]==a)
+            count=count+1;
+        else if(board[m][n]==b && count>0)
+        {
+            for(k=m,l=n;static_cast<void>(k>i),l<j;k--,l++)
+                board[k][l]='X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
+}
+
+int C_search_DRD(char board[][8],char a,char b,int i,int j)
+{
+    int m,n,k,l,count=0;
+    for(m=i+1,n=j+1;static_cast<void>(m<8),n<8;m++,n++)
+    {
+        if(board[m][n]==a)
+            count=count+1;
+        else if(board[m][n]==b && count>0)
+        {
+            for(k=m,l=n;static_cast<void>(k>i),l>j;k--,l--)
+                board[k][l]='X';
+            return 1;
+        }
+        else
+            return 0;
+    }
+    return 0;
 }
