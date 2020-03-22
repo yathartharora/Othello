@@ -1,5 +1,5 @@
 # Othello
-This is a strategic game played between two users
+# This is a strategic game played between two users
 Clone the project and run the C++ file (suitable for your OS) onto your machine.
 Please remember the following points before playing the game -- User always goes first and Symbol of user is always 'O'
 As you run the C++ file on your machine you will see a 8 by 8 matrix with the center 4 blocks of the matrix preoccupied by two 'X' and two 'O' i.e you will find the following matrix: 
