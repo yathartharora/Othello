@@ -41,7 +41,7 @@ The matrix will result into the following -
 . . . . . . . .
 
 Carefully observe the X's that have changed to O's and that have not changed to X's and maybe by now you may no the reason why!!?
-Consider another example - 
+Consider another example -
 . . . . . . . .                   . . . . . . . .
 . . . . . . . .                   . . . . . . . .
 . . . . X O . .                   . . . . X O . .
